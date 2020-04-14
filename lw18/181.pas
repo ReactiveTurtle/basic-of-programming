@@ -31,7 +31,7 @@ BEGIN {AverageScore}
             READ(NextScore);
           IF (NextScore > MaxScore) OR (NextScore < MinScore)
           THEN
-            WRITELN('Áàëë ìîæåò áûòü â äèàïàçîíå îò ', MinScore, ' äî ', MaxScore)
+            WRITELN('Ð…Ð°Ð»Ð» Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð² Ð´Ð¸Ð°Ð¿Ð°Ð·Ð¾Ð½Ðµ Ð¾Ñ‚ ', MinScore, ' Ð´Ð¾ ', MaxScore)
           ELSE
             BEGIN
               TotalScore := TotalScore + NextScore;
