@@ -34,31 +34,26 @@ END;
 
 PROCEDURE ReadNumber(VAR Src: TEXT; VAR Number: INTEGER);
 VAR
-  I, Digit: INTEGER;
+  I, Digit, PreviousDigit: INTEGER;
   IsOverflow: BOOLEAN;
-  NumberState: CHAR;
 BEGIN
   I := 0;
   Number := 0;
   IsOverflow := FALSE;
-  NumberState := 'S';
-  WHILE NOT EOLN(Src) AND NOT IsOverflow AND (NumberState <> 'E')
+  PreviousDigit := -1;
+  Digit := -1;
+  WHILE NOT EOLN(Src) AND (NOT IsOverflow) AND NOT ((Digit = -1) AND (PreviousDigit <> -1))
   DO
     BEGIN
+      PreviousDigit := Digit;
       ReadDigit(Src, Digit);
-      IF (NumberState = 'S') AND (Digit <> -1)
-      THEN
-        NumberState := 'F';
-        
-      IF (NumberState = 'F') AND (Digit = -1)
-      THEN
-        NumberState := 'E';
-        
-      IF NumberState = 'F'
+      IF Digit <> -1
       THEN
         BEGIN      
           I := I + 1;
-          IF (I < 5) OR ((I = 5) AND ((Number DIV 10) <= (MAXINT DIV 10)) AND (Digit <= 7))
+          // В лекции было максимальное значение Integer 38767, а здесь MAXINT показывает 2147483647 
+          // поэтому я взял 38767
+          IF (I < 5) OR ((I = 5) AND (Number <= 38767 DIV 10) AND (Digit <= (38767 MOD (38767 DIV 10))))
           THEN
             Number := Number * 10 + Digit
           ELSE
