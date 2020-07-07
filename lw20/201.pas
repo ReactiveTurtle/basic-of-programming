@@ -57,7 +57,7 @@ BEGIN
             WRITELN
          END
       ELSE
-        WRITELN('Symbol scheme not found');
+        WRITELN('Symbol scheme not found')
   END
 END;
 
