@@ -4,8 +4,11 @@ VAR
 
 PROCEDURE PrintSymbol(VAR Ch: CHAR);
 CONST
+  LineSize = 5;
   Min = 1;
   Max = 25;
+  Space = ' ';
+  Painter = 'X';
 VAR
   Symbol: SET OF Min..Max;
   I: INTEGER;
@@ -39,22 +42,31 @@ BEGIN
     'Y': Symbol := [1, 5, 7, 9, 13, 18, 23];
     'Z': Symbol := [1, 2, 3, 4, 5, 9, 13, 17, 21, 22, 23, 24, 25];
   END;
-  FOR I := Min TO Max
-  DO
-    BEGIN
-      IF I IN Symbol
-      THEN
-        WRITE('X')
+  CASE Ch OF
+    'A'..'Z': 
+      FOR I := Min TO Max
+      DO
+        BEGIN
+          IF I IN Symbol
+          THEN
+            WRITE(Painter)
+          ELSE
+            WRITE(Space);
+          IF I MOD LineSize = (Min - 1)
+          THEN
+            WRITELN
+         END
       ELSE
-        WRITE(' ');
-      IF I MOD 5 = 0
-      THEN
-        WRITELN
-    END
+        WRITELN('Symbol scheme not found');
+  END
 END;
 
 BEGIN
   WRITE('Print symbol: ');
-  READ(Ch);
-  PrintSymbol(Ch)
+  IF NOT EOLN(INPUT)
+  THEN
+    BEGIN
+      READ(Ch);
+      PrintSymbol(Ch);
+    END
 END.  
